@@ -46,7 +46,7 @@ const Index = () => {
           <div className="text-white/70 text-xs mb-1">В кошельке</div>
           <div className="flex items-center gap-2">
             <span className="text-3xl font-medium">
-              {hideBalance ? '••••• ₽' : '7,58 ₽'}
+              {hideBalance ? '••••• ₽' : '2 534 500 ₽'}
             </span>
             <Icon name="ChevronRight" size={20} className="text-white/60" />
             <button 
@@ -77,7 +77,7 @@ const Index = () => {
                 <div className="text-white/80 text-xs">3194</div>
               </div>
               <div>
-                <div className="text-white text-2xl font-semibold mb-1">7,58 ₽</div>
+                <div className="text-white text-2xl font-semibold mb-1">2 534 500 ₽</div>
                 <div className="text-white/80 text-xs">Счёт •• 2996</div>
               </div>
             </div>
