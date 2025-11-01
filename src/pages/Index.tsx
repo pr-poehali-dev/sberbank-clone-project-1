@@ -1,9 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('main');
   const [hideBalance, setHideBalance] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+    } else {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const stories = [
     { id: 1, label: 'Новый\nперевод', icon: 'Plus', isNew: true },
@@ -46,7 +58,7 @@ const Index = () => {
           <div className="text-white/70 text-xs mb-1">В кошельке</div>
           <div className="flex items-center gap-2">
             <span className="text-3xl font-medium">
-              {hideBalance ? '••••• ₽' : '2 534 500 ₽'}
+              {hideBalance ? '••••• ₽' : `${user?.balance?.toLocaleString('ru-RU') || 0} ₽`}
             </span>
             <Icon name="ChevronRight" size={20} className="text-white/60" />
             <button 
@@ -54,6 +66,12 @@ const Index = () => {
               className="ml-auto"
             >
               <Icon name={hideBalance ? "Eye" : "EyeOff"} size={20} className="text-white/60" />
+            </button>
+            <button
+              onClick={() => navigate('/deposit')}
+              className="bg-[#21A038] hover:bg-[#1A8030] px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Пополнить
             </button>
           </div>
         </div>
@@ -74,11 +92,11 @@ const Index = () => {
                 <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
                   <Icon name="CreditCard" size={20} className="text-white" />
                 </div>
-                <div className="text-white/80 text-xs">3194</div>
+                <div className="text-white/80 text-xs">{user?.card_number || '3194'}</div>
               </div>
               <div>
-                <div className="text-white text-2xl font-semibold mb-1">2 534 500 ₽</div>
-                <div className="text-white/80 text-xs">Счёт •• 2996</div>
+                <div className="text-white text-2xl font-semibold mb-1">{user?.balance?.toLocaleString('ru-RU') || 0} ₽</div>
+                <div className="text-white/80 text-xs">Счёт •• {user?.account_number || '2996'}</div>
               </div>
             </div>
 
@@ -87,7 +105,7 @@ const Index = () => {
                 С
               </div>
               <div className="text-center">
-                <div className="text-white text-lg font-semibold">0</div>
+                <div className="text-white text-lg font-semibold">{user?.sber_spasibo || 0}</div>
                 <div className="text-white/60 text-[10px]">СберСпасибо</div>
               </div>
             </div>
