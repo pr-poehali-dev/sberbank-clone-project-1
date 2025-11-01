@@ -122,9 +122,13 @@ const Index = () => {
 
           <div className="flex gap-4 overflow-x-auto pb-2">
             {stories.map((story) => (
-              <div key={story.id} className="flex flex-col items-center gap-2 min-w-[70px]">
+              <div 
+                key={story.id} 
+                className="flex flex-col items-center gap-2 min-w-[70px] cursor-pointer"
+                onClick={() => story.isNew && navigate('/transfer')}
+              >
                 {story.isNew ? (
-                  <div className="w-16 h-16 rounded-full bg-[#21A038] flex items-center justify-center shadow-lg">
+                  <div className="w-16 h-16 rounded-full bg-[#21A038] flex items-center justify-center shadow-lg hover:bg-[#1A8030] transition-colors">
                     <Icon name="Plus" size={28} className="text-white" />
                   </div>
                 ) : (
@@ -227,7 +231,7 @@ const Index = () => {
           </button>
 
           <button
-            onClick={() => setActiveTab('history')}
+            onClick={() => navigate('/history')}
             className="flex flex-col items-center gap-1 px-3 py-1 min-w-[60px]"
           >
             <Icon 

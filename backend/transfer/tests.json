@@ -1,0 +1,40 @@
+{
+  "tests": [
+    {
+      "name": "Transfer to Sber user",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "from_user_id": 1,
+        "type": "sber_transfer",
+        "to_phone": "+79991234568",
+        "amount": 100,
+        "description": "Test transfer"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "new_balance": "number"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "External bank transfer",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "from_user_id": 1,
+        "type": "external_transfer",
+        "to_card": "5536913812345678",
+        "bank_name": "Тинькофф",
+        "amount": 500
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "commission": "number"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
